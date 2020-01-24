@@ -1,12 +1,17 @@
 package com.ai.automation.employeConnect.utils;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 
+import org.apache.commons.io.FileUtils;
+import org.apache.poi.hpsf.Date;
 import org.openqa.selenium.Dimension;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -177,6 +182,17 @@ public class DriverUtils {
 		.moveTo(PointOption.point(startx, endy)).release().perform();
 	}
 	
-	
+	public static void captureScreen(AndroidDriver<AndroidElement> driver) throws IOException
+	{
+		File f =  new File("ss\\SS_" + new Date().toString().replace(" ", "_").replace(":", "_") + ".png");
+		
+		TakesScreenshot ts = (TakesScreenshot)driver;
+		
+		File output = ts.getScreenshotAs(OutputType.FILE);
+		
+		FileUtils.copyFile(output, f);
+		
+		
+	}
 	
 }
